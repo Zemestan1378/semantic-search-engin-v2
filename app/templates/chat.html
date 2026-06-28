@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PDF RAG Chat</title>
+</head>
+
+<body>
+
+    <h1>PDF RAG Chat</h1>
+
+    <form method="post" action="/chat">
+
+        <input
+            type="text"
+            name="question"
+            placeholder="Ask a question..."
+            size="60"
+            required
+        >
+
+        <button type="submit">
+            Ask
+        </button>
+
+    </form>
+
+    <hr>
+
+    <h3>Question:</h3>
+    <p>{{ question }}</p>
+
+    <h3>Answer:</h3>
+    <p>{{ answer }}</p>
+
+    <h3>Sources:</h3>
+
+    <ul>
+        {% if sources %}
+            {% for source in sources %}
+                <li>{{ source }}</li>
+            {% endfor %}
+        {% else %}
+            <li>No sources found</li>
+        {% endif %}
+    </ul>
+
+</body>
+
+</html>
