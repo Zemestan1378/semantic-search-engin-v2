@@ -3,7 +3,23 @@ import chromadb
 
 from pdf_loader import load_pdf
 from chunker import chunk_text
+import os
+import chromadb
 
+from pdf_loader import load_pdf
+from chunker import chunk_text
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+pdf_folder = os.path.join(BASE_DIR, "data", "pdfs")
+db_path = os.path.join(BASE_DIR, "db")
+
+os.makedirs(pdf_folder, exist_ok=True)
+os.makedirs(db_path, exist_ok=True)
+
+client = chromadb.PersistentClient(
+    path=db_path
+)
 # PDF folder
 pdf_folder = "data/pdfs"
 
@@ -24,6 +40,11 @@ collection = client.create_collection(
 )
 
 # Process PDFs
+if not os.path.exists(pdf_folder):
+    raise RuntimeError(f"PDF folder not found: {pdf_folder}")
+
+print("PDF folder:", pdf_folder)
+print("Files:", os.listdir(pdf_folder))
 for pdf_file in os.listdir(pdf_folder):
 
     if not pdf_file.endswith(".pdf"):

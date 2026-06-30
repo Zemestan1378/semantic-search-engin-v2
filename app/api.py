@@ -35,30 +35,7 @@ templates = Jinja2Templates(directory="app/templates")
 # =====================
 
 client = chromadb.PersistentClient(path="db")
-
-try:
-    collection = client.get_collection("pdf_collection")
-
-except Exception:
-
-    print("Building Chroma database...")
-
-    subprocess.run(
-        [sys.executable, "app/build_pdf_chroma.py"],
-        check=True
-    )
-
-    client = chromadb.PersistentClient(path="db")
-
-    collection = client.get_collection("pdf_collection")
-    subprocess.run(
-        ["python", "app/build_pdf_chroma.py"],
-        check=True
-    )
-
-    client = chromadb.PersistentClient(path="db")
-
-    collection = client.get_collection("pdf_collection")
+collection = client.get_or_create_collection("pdf_collection")
 # =====================
 # Model
 # =====================
