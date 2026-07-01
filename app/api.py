@@ -5,15 +5,6 @@ import os
 import subprocess
 import sys
 import chromadb
-subprocess.run(
-    [sys.executable, "app/download_pdfs.py"],
-    check=True
-)
-
-subprocess.run(
-    [sys.executable, "app/build_pdf_chroma.py"],
-    check=True
-)
 from transformers import (
     AutoTokenizer,
     AutoModelForSeq2SeqLM

@@ -6,6 +6,12 @@ COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+# دانلود PDFها
+RUN python app/download_pdfs.py
+
+# ساخت ChromaDB
+RUN python app/build_pdf_chroma.py
+
 EXPOSE 7860
 
 CMD ["uvicorn", "app.api:app", "--host", "0.0.0.0", "--port", "7860"]
